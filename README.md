@@ -41,6 +41,7 @@ will be recognized.
 disable for now.
 + `clang-format` supports a plethora of formatting options. Need to figure out
 how to use `.clang-format` options with Clangd.
++ Automatic installation of Clangd
 
 [atom]: http://atom.io/beta
 [clangd]: https://clang.llvm.org/extra/clangd.html
