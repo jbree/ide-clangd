@@ -1,8 +1,9 @@
 {
-  "name": "atom-ide-clangd",
+  "name": "ide-clangd",
   "main": "lib/main.js",
   "version": "0.1.0",
   "description": "A clangd language server plugin for Atom",
+  "repository": "https://github.com/jbree/ide-clangd",
   "keywords": [
     "atom-ide",
     "ide",
