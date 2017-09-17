@@ -1,23 +1,27 @@
 {
   "name": "atom-ide-clangd",
-  "version": "1.0.0",
-  "description": "A clangd language server plugin for Atom",
   "main": "lib/main.js",
+  "version": "0.1.0",
+  "description": "A clangd language server plugin for Atom",
+  "keywords": [
+    "atom-ide",
+    "ide",
+    "c",
+    "c++",
+    "cpp",
+    "clang",
+    "clangd",
+    "languageserver",
+    "language-server-protocol",
+    "language-client"
+  ],
   "author": "Joshua Breeden <jbreeden@me.com>",
   "license": "MIT",
   "engines ": {
     "atom": ">=1.21.0"
   },
-  "configSchema": {
-  "clangExecutable": {
-    "type": "string",
-    "default": "/usr/local/bin/clangd",
-    "description": "Absolute path to `clangd` executable."
-  }
-},
   "dependencies": {
-    "atom-languageclient": "^0.6.1",
-    "decompress": "^4.2.0"
+    "atom-languageclient": "^0.6.1"
   },
   "enhancedScopes": [
     "source.c",
@@ -32,11 +36,6 @@
     "datatip": {
       "versions": {
         "0.1.0": "consumeDatatip"
-      }
-    },
-    "status-bar": {
-      "versions": {
-        "^1.0.0": "consumeStatusBar"
       }
     }
   },
