@@ -1,12 +1,13 @@
 # ide-clangd
 
-Provides C and C++ language support for [Atom][atom] using
-[Clangd language server](clangd)
+Provides C and C++ language support for [Atom] using
+[Clangd language server][Clangd]
 
 ## About
 
 This plugin only provides some of the functionality designated by the language
-server protocol. This plugin currently enables many of the features supported by Clangd:
+server protocol. This plugin currently enables many of the features supported by
+Clangd:
 + Diagnostics (errors, warnings, info)
 + Code Formatting
 + Completion
@@ -20,25 +21,50 @@ All contributions and feedback are appreciated.
 
 ## Requirements
 
-+ [Atom 1.21-beta][atom]
-+ [atom-ide-ui][atom-ide-ui] atom plugin
-+ Clangd executable installed in your path ([prebuilt binaries][llvm-releases])
++ [Atom] 1.21 or later
++ [atom-ide-ui] atom plugin
++ [Clangd] executable installed in your path ([prebuilt binaries])
 
-## Additional Notes
+## Compilation Database
+
+In order to make this plugin work effectively, clangd requires information about
+how your code should be compiled. There are two options: compile_commands.json,
+or compile_flags.txt.
 
 ### compile_commands.json
-+ In order to make this plugin work effectively, you need to generate a compile_commands.json file in a place where clangd can find it (project root). CMake is currently your best bet for making that happen. If you're doing an out-of-source build and you're already in your `project/build` directory, the CMake command to generate compile_commands.json along with your project looks like this: `cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
 
-Clangd won't see your compile_commands.json file if you do an out of source build like this, though. The best solution I've come up with so far is to symlink compile_commands.json from my build directory to my project root with `ln -s build/compile_commands.json .`
+[CMake] is currently your best bet for generating a compile_commands.json file.
+The command to generate compile_commands.json along with your project looks
+something like this: `cmake (SOURCE_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
+
+CMake doesn't include header information in the compile_commands.json file. To
+rectify this, I use a tool called [compdb].
+
+Clangd won't see your compile_commands.json file if it's placed in your build
+directory, so you should either symlink it to your project directory, or have
+compdb generate its output there.
+
+### compile_flags.txt
+
+[Another supported solution][compile-flags] is to make a compile_flags.txt file
+and place it in your project directory. Clangd will treat all project files with
+the same options. A simple compile_flags.txt might look something like this:
+
+```
+-std=c++11
+-Iinclude
+-DMY_DEBUG_FLAG
+```
 
 ## Areas of interest
 
-+ `clang-format` supports a plethora of formatting options. Need to figure out
-how to use `.clang-format` options with Clangd.
 + Automatic installation of Clangd
 
-[atom]: http://atom.io/beta
-[clangd]: https://clang.llvm.org/extra/clangd.html
+[Atom]: http://atom.io/
+[Clangd]: https://clang.llvm.org/extra/clangd.html
+[CMake]: https://cmake.org
+[compdb]: https://github.com/Sarcasm/compdb
+[compile-flags]: https://clang.llvm.org/docs/JSONCompilationDatabase.html#alternatives
 [langserver]: http://langserver.org
-[llvm-releases]: http://releases.llvm.org/download.html
+[prebuilt binaries]: http://releases.llvm.org/download.html
 [atom-ide-ui]: https://atom.io/packages/atom-ide-ui
