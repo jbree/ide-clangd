@@ -1,50 +1,70 @@
 # ide-clangd
 
-Provides C and C++ language support for [Atom][atom] using
-[Clangd language server](clangd)
+Provides C and C++ language support for [Atom] using
+[Clangd language server][Clangd]
 
 ## About
 
 This plugin only provides some of the functionality designated by the language
-server protocol. This plugin currently supports 3 of the 5 features supported by Clangd itself:
-+ Diagnostics (errors, warnings, info),
-+ Code Formatting,
-+ Go To Definition
-+ ~~Completion~~
-+ ~~Fix-its~~
-
-Clangd, the language server upon which this plugin depends, is still a "work in
-progress" according to [langserver.org][langserver], and only implements some
-parts of the protocol.
-
-This plugin is in very early development, so don't expect it to be fully
-functional.
+server protocol. This plugin currently enables many of the features supported by
+Clangd:
++ Diagnostics (errors, warnings, info)
++ Code Formatting
++ Completion
++ Fix-its
++ Function signature help
++ Document highlights
++ ~~Go To Definition~~ (it will go to the declaration, but not the definition)
++ ~~Rename~~ (not yet supported by Atom)
 
 All contributions and feedback are appreciated.
 
 ## Requirements
 
-+ [Atom 1.21-beta][atom]
-+ [atom-ide-ui][atom-ide-ui] atom plugin
-+ Clangd executable installed in your path ([prebuilt binaries][llvm-releases])
++ [Atom] 1.21 or later
++ [atom-ide-ui] atom plugin
++ [Clangd] executable installed in your path ([prebuilt binaries])
 
-## Additional Notes
+## Compilation Database
 
-+ In the current release of Clangd, there's no way to tell it where to look for
-headers. The binary distribution includes headers, and by creating a symlink to
-the `include/c++` directory in your `/usr/local/include/` directory, headers
-will be recognized.
+In order to make this plugin work effectively, clangd requires information about
+how your code should be compiled. There are two options: compile_commands.json,
+or compile_flags.txt.
+
+### compile_commands.json
+
+[CMake] is currently your best bet for generating a compile_commands.json file.
+The command to generate compile_commands.json along with your project looks
+something like this: `cmake (SOURCE_DIR) -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`
+
+CMake doesn't include header information in the compile_commands.json file. To
+rectify this, I use a tool called [compdb].
+
+Clangd won't see your compile_commands.json file if it's placed in your build
+directory, so you should either symlink it to your project directory, or have
+compdb generate its output there.
+
+### compile_flags.txt
+
+[Another supported solution][compile-flags] is to make a compile_flags.txt file
+and place it in your project directory. Clangd will treat all project files with
+the same options. A simple compile_flags.txt might look something like this:
+
+```
+-std=c++11
+-Iinclude
+-DMY_DEBUG_FLAG
+```
 
 ## Areas of interest
 
-+ Autocomplete is supported by Clangd, but what comes back isn't useful, so it's
-disable for now.
-+ `clang-format` supports a plethora of formatting options. Need to figure out
-how to use `.clang-format` options with Clangd.
 + Automatic installation of Clangd
 
-[atom]: http://atom.io/beta
-[clangd]: https://clang.llvm.org/extra/clangd.html
+[Atom]: http://atom.io/
+[Clangd]: https://clang.llvm.org/extra/clangd.html
+[CMake]: https://cmake.org
+[compdb]: https://github.com/Sarcasm/compdb
+[compile-flags]: https://clang.llvm.org/docs/JSONCompilationDatabase.html#alternatives
 [langserver]: http://langserver.org
-[llvm-releases]: http://releases.llvm.org/download.html
+[prebuilt binaries]: http://releases.llvm.org/download.html
 [atom-ide-ui]: https://atom.io/packages/atom-ide-ui
