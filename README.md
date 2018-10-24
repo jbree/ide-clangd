@@ -23,7 +23,6 @@ All contributions and feedback are appreciated.
 
 + [Atom] 1.21 or later
 + [atom-ide-ui] atom plugin
-+ [Clangd] executable installed in your path ([prebuilt binaries])
 
 ## Compilation Database
 

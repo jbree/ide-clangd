@@ -1,0 +1,25 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "atomtest": true,
+        "node": true,
+        "browser": true
+    },
+    "globals": {
+        "atom": true
+    },
+
+    "rules": {
+        "brace-style": [0],
+        "class-methods-use-this": 0,
+        "global-require": 0,
+        "indent": ["error", 2, {
+            "FunctionDeclaration": {
+                "parameters": 2
+            }
+
+        }],
+        "space-before-function-paren": ["error", "always"],
+        "spaced-comment": ["error", "always", { "markers": ["/", "/<", "TODO", "FIXME"] }]
+    }
+}

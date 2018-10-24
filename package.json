@@ -22,9 +22,19 @@
     "atom": ">=1.21.0"
   },
   "dependencies": {
-    "atom-languageclient": "^0.9.4",
+    "async": "^2.6.1",
+    "atom-languageclient": "^0.9.7",
     "decompress": "^4.2.0",
-    "decompress-tarxz": "^2.1.1"
+    "decompress-tarxz": "^2.1.1",
+    "hasbin": "^1.2.3",
+    "htmlparser2": "^3.9.2",
+    "node-fetch": "^2.2.0",
+    "semver": "^5.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
   },
   "enhancedScopes": [
     "source.c",
