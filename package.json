@@ -83,6 +83,11 @@
         "0.1.0": "provideDefinitions"
       }
     },
+    "outline-view": {
+      "versions": {
+        "0.1.0": "provideOutlines"
+      }
+    },
     "signature-help": {
       "versions": {
         "0.1.0": "provideSignatureHelp"
